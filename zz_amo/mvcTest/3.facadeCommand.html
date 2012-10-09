@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../corejs/mvc/MvcBase.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcCommand.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcFacade.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcProxy.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcMediator.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/Notification.js" type="text/javascript"></script>
+</head>
+<body>
+    <script type="text/ecmascript">
+
+        //建立新facade class
+        var myFacade = new mvcjs.MvcFacade("myFacade");
+
+        //衍伸測試 TestCommand
+        //####################################################################################
+        this.testns = this.testns || {};
+        (function () {
+            TestCommand = function () {
+            }
+            //-------------------------------------------------------------------
+            //[--PUBLIC--] Properties | Functions
+            //-------------------------------------------------------------------
+            var p = TestCommand.prototype = new mvcjs.MvcCommand();
+            //!! 設定ClassFullName
+            p.getClassName = function () {
+                return "testns.TestCommand";
+            }
+            p.execute = function (note) {
+                alert("execute note : " + note.dump());
+            }
+            //static name reference
+            TestCommand.NAME = "testns.TestCommand";
+            testns.TestCommand = TestCommand;
+        }());
+        //####################################################################################
+
+        myFacade.addCommand("testCmdFiredA", new testns.TestCommand().getClassName());
+        myFacade.addCommand("testCmdFiredB", testns.TestCommand.NAME);
+
+        myFacade.sendNotify("testCmdFiredA", "value", "typeA");
+        myFacade.sendNotify("testCmdFiredB", "value", "typeB");
+
+        //移除command事件~
+        myFacade.removeCommand("testCmdFiredB", "testns.TestCommand");
+
+        myFacade.sendNotify("testCmdFiredA", "value", "typeA2");
+        myFacade.sendNotify("testCmdFiredB", "value", "typeB2");
+
+    </script>
+</body>
+</html>

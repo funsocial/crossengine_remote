@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeTween();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            background-color: #222222;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stage" style="background-color: #000000;">
+        <div id="content" style="background-color:#FFFFFF;"></div>
+        <div id="footer" style="background-color:#c2c2c2;">
+            <input type="button" value="ipadSize" onclick="resizeToIpad();" />
+            <input type="button" value="iphoneSize" onclick="resizeToIphone();" />
+        </div>
+    </div>
+    
+
+    <script type="text/javascript">
+
+        var assetLoader;
+
+        $(document).ready(function () {
+
+            DebugView.setUp(document.body, 50, 50, 400, 100);
+
+            //設定主要場景 Iphone 尺寸 320x356
+            stage = new view.Stage();
+            //initialize: function (useDiv, minWidth, minHeight, maxWidth, maxHeight)
+            //for ipad portrait orientation it is 768×946, and in landscape it is 1024×690.
+            stage.initialize("stage", "320px", "356px", "320px", "356px");
+            stage.setAlign({ va: "T", ha: "C" });
+
+            //設定主要content
+            content = new view.Display();
+            //initialize: function (useDiv, minWidth, minHeight, maxWidth, maxHeight)
+            //for ipad portrait orientation it is 768×946, and in landscape it is 1024×690.
+            content.useDiv("content");
+            stage.setupChild(content);
+            content.setSize("320px", "356px");
+            content.setMask(); //over-flow: hidden;
+
+            //設定場景下方footer
+            var footer = new view.Display();
+            footer.useDiv("footer");
+            footer.setSize("100%", "50px");
+            footer.setAlign({ va: "B", ha: "C" , voff : 50 });
+            stage.setupChild(footer);
+            stage.alignStage();
+
+            //讀取遊戲資料
+            assetLoader = new core.Loader();
+            assetLoader.initialize(["mario.png", "mario.xml"]);
+            assetLoader.allItemLoaded = function (result) {
+                gameSetup();
+            }
+            assetLoader.load();
+        });
+
+        function gameSetup() {
+
+            var aniA = new view.MovieClip();
+            aniA.asClip("mario.png", assetLoader.assets["mario.xml"], "swim", 0, 20, 27);
+            content.addChild(aniA);
+            aniA.setFPS(6);
+
+            aniA.tween(.5, { alpha: 0, x: 100, onComplete: function () { trace("DONE"); } });
+
+            var callOnce = function () {
+
+                aniA.removeListener(callOnce);
+                aniA.playOnceStop();
+            }
+
+            aniA.addListener(MovieClip.ONCE_PLAYED, callOnce);
+            aniA.playOnceStop();
+
+            
+
+            //var aniB = new view.MovieClip();
+            //aniB.asClip("mario.png", assetLoader.assets["mario.xml"], "swim", 0, 20, 27);
+            //content.addChild(aniB);
+            //aniB.setFPS(6);
+            //aniB.playYoYo();
+            //aniB.move(150, 100);
+            //aniB.tween(10, { "y": 300 });
+
+            //START RUNNING  by using Render's call back
+            Render.addCallBack(gameRender);
+            Render.addFPSWatch($("body"), 10, 10);
+            Render.start();
+        }
+
+        function gameRender(timeDiff) {
+            content.playUpdate(timeDiff);
+        }
+
+        function resizeToIpad() {
+            stage.setSizeMinMax("768px", "946px", "768px", "946px");
+            stage.alignStage();
+
+            //縮放content 機制，取得放大較小範圍為放大比例
+            var wp = 768 / 320;
+            var hp = 946 / 356 ;
+            var usep = wp;
+            if (hp < wp) usep = hp;
+            content.scale(usep, usep);
+            content.move( (768-320)*.5 , (946-356)*.5 );
+        }
+
+        function resizeToIphone() {
+            stage.setSizeMinMax("320px", "356px", "320px", "356px");
+            stage.alignStage();
+            content.scale(1, 1);
+            content.move(0, 0);
+        }
+
+    </script>
+</body>
+</html>

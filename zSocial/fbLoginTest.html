@@ -1,0 +1,69 @@
+﻿<html>
+<head>
+    <title></title>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <script type="text/javascript" src="../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        window.globalFlag = true;
+        SourceInclude.includeCore();
+        SourceInclude.includeGameCss();
+    </script>
+</head>
+<body>
+    <script src="https://connect.facebook.net/en_US/all.js"></script>
+    <script>
+
+        DebugView.setUp(document.body, 10, 100);
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '393427900724946', // App ID
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true  // parse XFBML
+            });
+            //FB.Event.subscribe('auth.statusChange', handleStatusChange);
+            FB.getLoginStatus(function (response) {
+                if (response.authResponse) {
+                    DebugView.trace("login " + response.authResponse);
+                    FB.api('/me', function (response) {
+                        $("#user-info").html("name? " + response.name);
+                        //'<img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+                        DebugView.trace("name: " + response.name);
+                        DebugView.trace("id: " + response.id);
+                    });
+                } else {
+                    DebugView.trace("not logined ");
+                }
+            }, true);
+        };
+        function handleStatusChange(response) {
+            DebugView.trace("handleStatusChange ");
+            if (response.authResponse) {
+                DebugView.trace("login " + response.authResponse);
+                FB.api('/me', function (response) {
+                    $("#user-info").html("name? " + response.name);
+                    //'<img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+                    DebugView.trace("name: " + response.name);
+                    DebugView.trace("id: " + response.id);
+                });
+            } else {
+                DebugView.trace("not logined ");
+            }
+        }
+    </script>
+
+    <div id="login">
+        <button onclick="loginUser();">Login</button>
+    </div>
+    <div id="logout">
+        <button onclick="FB.logout();">Logout</button>
+    </div>
+    <div id="user-info"></div>
+
+    <script>
+        function loginUser() {
+            FB.login(function (response) { }, { scope: 'email' });
+        }
+    </script>
+</body>
+</html>

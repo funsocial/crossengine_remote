@@ -1,0 +1,272 @@
+﻿<!DOCTYPE>
+<html lang="zh-tw">
+
+<head>
+    <title>SexyFit 專業空中舞教室</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../";
+        SourceInclude.includeCore();
+        SourceInclude.includeMediaCss();
+        SourceInclude.includeTween();
+        SourceInclude.includeUI();
+    </script>
+    <style type="text/css">
+        img {
+            border: none;
+        }
+        
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            font-family: 'Microsoft JhengHei';
+            font-size: 15px;
+            overflow-y:scroll;
+            overflow-x:hidden;
+        }
+
+        #mainScreen {
+            background: url('imgs/bk.jpg');
+        }
+
+        #topLogo {
+            padding: 7px;
+        }
+
+        #topMenu {
+            background: url('imgs/topBk.jpg') 0px 0px repeat-x;
+        }
+
+        #keyImg {
+            width: 100%;
+            height: 150px;
+            background-image: url(imgs/keyImg.jpg);
+            background-repeat: no-repeat;
+            background-color: #EEE;
+            /*fits on the display area entirely, crop exceed area*/
+            background-size: cover;
+        }
+
+        #contents {
+            background-color: #FFFFFF;
+            width: 100%;
+        }
+
+        #footer {
+            color: #FFFFFF;
+            font-size: 12px;
+            font-family: Arial;
+            background: url(imgs/bk.jpg);
+            padding: 10px;
+            text-align: center;
+        }
+
+        #menuListDiv {
+            overflow: hidden;
+        }
+
+        #menuTable {
+            border-spacing: 0;
+        }
+
+        #menuTable td {
+            -webkit-user-select: none;
+            user-select: none;
+            -moz-user-select: -moz-none;
+            -khtml-user-select: none;
+            -o-user-select: none;
+            -ms-user-select: none;
+            padding: 0px 0px 0px 15px;
+            cursor: pointer;
+            width: 50%;
+            height: 50px;
+            background: url(imgs/btnBack.png) repeat-x 0px 0px;
+            border-top: 1px solid #e855a7;
+            border-right: 1px solid #c31f5f;
+            border-left: 1px solid #c31f5f;
+            border-bottom: 1px solid #c31f5f;
+            color: #FFFFFF;
+        }
+
+        .menuTableArrow {
+            float: right;
+            padding: 1px 15px 0px 0px;
+        }
+
+        h1 {
+            font-size: 18px;
+            padding: 0px;
+            margin: 0px;
+            font-weight: normal;
+            color: #d12f6e;
+        }
+
+        p {
+            line-height:150%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainScreen">
+
+        <div id="loadingFill">
+            <div style="position: absolute; top: 45%; height: 10%; width: 100%; color:#FFFFFF; text-align:center;">
+                LOADING...
+            </div>
+        </div>
+
+        <div id="topMenu">
+            <div id="topLogo">
+                <img src="imgs/logo.png" />
+            </div>
+        </div>
+
+        <div id="menuTabBtn"></div>
+        <div id="menuListDiv">
+            <table style="width: 100%" id="menuTable">
+                <tr>
+                    <td onclick="loadContent('about');">關於SexyFit<img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    <td onclick="loadContent('classInfo');">課程介紹
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                </tr>
+                <tr>
+                    <td>媒體/報導
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    <td>上課紀錄
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                </tr>
+                <tr>
+                    <td>線上像簿
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    <td>Q &amp; A
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                </tr>
+                <tr>
+                    <td>私人課程報名表
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    <td>團體班報名表
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                </tr>
+            </table>
+        </div>
+        <div id="contents">
+
+            <!-- 主要內容物 -->
+            <div id="centerContent">
+                
+            </div>
+            <div id="footer">SexyFit 專業空中舞教室 © 2012.</div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+
+        var menuTableOn = false;
+        var menuTable;
+        var loadingFill;
+
+        $(document).ready(function () {
+
+            //DebugView.setUp(document.body, 500, 10);
+
+            //最外層stage 設定
+            stage = new viewjs.CStage();
+            //stage.initialize("mainScreen", "#DDDDDD", 320, 356, 320, 356);
+            //stage.setAlign({ w: 320, h: 356, ha: "C", va: "T" });
+            stage.initialize("mainScreen", "100%", "100%", "100%", "100%");
+            stage.setAlign({ w: "100%", h: "100%", ha: "C", va: "T" });
+
+            var topMenu = new viewjs.CDisplay();
+            stage.addChild(topMenu, 50);
+
+            topMenu.useDiv("topMenu");
+            topMenu.setSize("100%", 52); //add to stage so when setting size it will reflect the stage size
+
+            var menuListDiv = new viewjs.CDisplay();
+            menuListDiv.useDiv("menuListDiv");
+            stage.addChild(menuListDiv, 40);
+            menuListDiv.setSize("100%", 200);
+            menuListDiv.setAlign({ w: "100%", h: 100, ha: "C", va: "T", voff: 52 });
+
+            //menuTable 已存在於menuListDiv child，使用menuListDiv設定對應做標及遮罩
+            //已存在於menuListDiv ---> 不需要增加至 stage.addChild, 不需要設定 size或 align
+            menuTable = new viewjs.CDisplay();
+            menuTable.useDiv("menuTable", true);
+            menuTable.move(0, -200);
+
+            var contents = new viewjs.CDisplay();
+            contents.useDiv("contents");
+            stage.addChild(contents, 1);
+            contents.move(0, 52);
+
+
+            //讀取畫面
+            loadingFill = new ui.CTopFill();
+            loadingFill.setup("loadingFill", "#000000",.7);
+            stage.addChild(loadingFill, 1000);
+            loadingFill.hide();
+
+
+            //主選單切換
+            var menuTabBtn = new ui.CButton();
+            menuTabBtn.useDiv("menuTabBtn");
+            menuTabBtn.setSelectable(false);
+            menuTabBtn.asImageButton("imgs/menuTabBtn.png", false, true, 87, 31);
+            stage.addChild(menuTabBtn, 60);
+            menuTabBtn.setAlign({ w: 87, h: 31, ha: "R", va: "T", hoff: -20, voff: 21 });
+            $(menuTabBtn.div).on("mousedown", function () {
+                if (!menuTableOn) {
+                    menuIn();
+                } else {
+                    menuOut();
+                }
+            });
+
+            //首次手動設定align
+            stage.alignStage();
+
+
+            //tableButton 點選high light
+            $("#menuTable td").on("mousedown", function () {
+                $(this).css({ backgroundPosition: "0px -50px" });
+            });
+            $("#menuTable td").on("mouseup", function () {
+                $(this).css({ backgroundPosition: "0px 0px" });
+                menuOut();
+            });
+
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            $('#centerContent').load("about.html");
+
+        });
+
+        function menuIn() {
+            menuTable.tween(.3, { y: 0, ease: Power2.easeOut });
+            menuTableOn = true;
+        }
+
+        function menuOut() {
+            menuTable.tween(.3, { y: -200, ease: Power2.easeIn });
+            menuTableOn = false;
+        }
+
+        function loadContent(path) {
+            loadingFill.show();
+            loadingFill.setAlpha(0);
+            loadingFill.tween(.5, {
+                alpha: .8, onComplete: function () {
+                    $('#centerContent').load(path+".html", function () {
+                        loadingFill.tweenHide(.5, {alpha:0});
+                    });
+                }
+            });
+        }
+
+    </script>
+
+</body>
+</html>

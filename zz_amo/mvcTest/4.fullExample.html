@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../corejs/mvc/MvcBase.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcCommand.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcFacade.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcProxy.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcMediator.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/Notification.js" type="text/javascript"></script>
+</head>
+<body>
+    <script type="text/ecmascript">
+
+        //建立新facade class
+        var myFacade = new mvcjs.MvcFacade("myFacade");
+
+
+        //衍伸測試 TestMediator
+        //####################################################################################
+        this.testns = this.testns || {};
+        (function () {
+            TestMediator = function () {
+                //新建後則建立static reference 幫助快速找尋
+                if (testns.TestMediator.instance == null) testns.TestMediator.instance = this;
+            }
+            //-------------------------------------------------------------------
+            //[--PUBLIC--] Properties | Functions
+            //-------------------------------------------------------------------
+            var p = TestMediator.prototype = new mvcjs.MvcMediator();
+            //!! 設定ClassFullName
+            p.getClassName = function () {
+                return "testns.TestMediator";
+            }
+            //!! 設定監聽事件
+            p.registerNotification = function () {
+                return ["dataLoaded", "testEventB", "testEventC"];
+            }
+            //!! 設定事件發生處理
+            p.handleNotification = function (note) {
+                alert(" mediator " + this.getClassName() + "  handle : " + note.dump());
+            }
+            //測試function
+            p.getView = function () {
+                alert("TestMediator getting View ~ ");
+            }
+            //static name reference
+            TestMediator.NAME = "testns.TestMediator";
+            testns.TestMediator = TestMediator;
+        }());
+        //####################################################################################
+
+
+        //衍伸測試 TestUIMed
+        //####################################################################################
+        this.testns = this.testns || {};
+        (function () {
+            TestUIMed = function () {
+                //新建後則建立static reference 幫助快速找尋
+                if (testns.TestUIMed.instance == null) testns.TestUIMed.instance = this;
+            }
+            //-------------------------------------------------------------------
+            //[--PUBLIC--] Properties | Functions
+            //-------------------------------------------------------------------
+            var p = TestUIMed.prototype = new mvcjs.MvcMediator();
+            //!! 設定ClassFullName
+            p.getClassName = function () {
+                return "testns.TestUIMed";
+            }
+            //!! 設定監聽事件
+            p.registerNotification = function () {
+                return ["dataLoaded"];
+            }
+            //!! 設定事件發生處理
+            p.handleNotification = function (note) {
+                alert(" mediator " + this.getClassName() + "  handle : " + note.dump());
+            }
+
+            //測試function
+            p.update = function () {
+                alert("TestUIMed update ");
+            }
+            //static name reference
+            TestUIMed.NAME = "testns.TestUIMed";
+            testns.TestUIMed = TestUIMed;
+        }());
+        //####################################################################################
+
+
+        //衍伸測試 TestProxy
+        //####################################################################################
+        this.testns = this.testns || {};
+        (function () {
+            TestProxy = function () {
+                //新建後則建立static reference 幫助快速找尋
+                if (testns.TestProxy.instance == null) testns.TestProxy.instance = this;
+            }
+            //-------------------------------------------------------------------
+            //[--PUBLIC--] Properties | Functions
+            //-------------------------------------------------------------------
+            var p = TestProxy.prototype = new mvcjs.MvcProxy();
+            //!! 設定ClassFullName
+            p.getClassName = function () {
+                return "testns.TestProxy";
+            }
+            p.getData = function () {
+                this.sendNotify("dataLoaded", {value:"fake"}, "json");
+            }
+            //static name reference
+            TestProxy.NAME = "testns.TestProxy";
+            testns.TestProxy = TestProxy;
+        }());
+        //####################################################################################
+
+        //衍伸測試 TestCommand
+        //####################################################################################
+        this.testns = this.testns || {};
+        (function () {
+            TestCommand = function () {
+            }
+            //-------------------------------------------------------------------
+            //[--PUBLIC--] Properties | Functions
+            //-------------------------------------------------------------------
+            var p = TestCommand.prototype = new mvcjs.MvcCommand();
+            //!! 設定ClassFullName
+            p.getClassName = function () {
+                return "testns.TestCommand";
+            }
+            p.execute = function (note) {
+                var testProxy = this.getProxy(testns.TestProxy.NAME);
+                testProxy.getData();
+            }
+            //static name reference
+            TestCommand.NAME = "testns.TestCommand";
+            testns.TestCommand = TestCommand;
+        }());
+        //####################################################################################
+
+
+        var m1 = new testns.TestMediator();
+        myFacade.addMediator(m1);
+        var mui = new testns.TestUIMed();
+        myFacade.addMediator(mui);
+
+        var px = new testns.TestProxy();
+        myFacade.addProxy(px);
+
+        myFacade.addCommand("callTest", testns.TestCommand.NAME);
+        myFacade.sendNotify("callTest");
+     
+        //facade傳遞事件
+        //m1.sendNotify("UIEvent", { value: "12345" }, "typeUI");
+        //mui.sendNotify("testEventA", { value: "12345" }, "typeB");
+        //myFacade.sendNotify("testEventB", { value: "12345" }, "typeA");
+
+    </script>
+</body>
+</html>

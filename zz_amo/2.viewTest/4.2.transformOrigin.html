@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeTween();
+    </script>
+
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            background-color:#2868a8;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainScreen">
+        <input type="button" onclick="testClick()" value="change" />
+        <div id="itemA" style="background-color:#ff3399;"></div>
+        <div id="itemB" style="background-color:#222;"></div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        var assetLoader;
+        var stage;
+        var aniA;
+        var aniB;
+        var aniC;
+        var aniD;
+
+        $(document).ready(function () {
+
+            DebugView.setUp(document.body, 400, 50, 400, 200);
+
+            //建立stage物件並置入所有 div Display物件
+            //註：背景相關參數置入至body style
+            stage = new view.Stage();
+            //initialize: function (useDiv, minWidth, minHeight, maxWidth, maxHeight)
+            stage.initialize("mainScreen", "100%", "100%", "100%", "100%");
+
+            assetLoader = new core.Loader();
+            assetLoader.initialize(["mario.png", "mario.xml"]);
+            assetLoader.itemLoaded = function (result) {
+                //DebugView.trace("item load " + result);
+            }
+            assetLoader.allItemLoaded = function (result) {
+                //DebugView.trace("allItemLoaded xml is " + assetLoader.assets["mario.xml"]);
+                initClip();
+            }
+            assetLoader.load();
+
+        });
+        var movieA;
+        var itemA;
+        function initClip() {
+
+            var itemB = new view.Display();
+            itemB.useDiv("itemB");
+            stage.addChild(itemB);
+            itemB.setSize(100, 50);
+            itemB.move(200, 400);
+
+            itemA = new view.Display();
+            itemA.useDiv("itemA");
+            stage.addChild(itemA);
+            itemA.setSize(100, 50);
+            itemA.move(200, 400);
+
+            //建立單張圖形
+            movieA = new view.MovieClip();
+            movieA.asSingleImg("sprites/jump.png", 20, 27);
+            stage.addChild(movieA);
+            movieA.scale(2, 2);
+            movieA.move(100, 100);
+
+            var movieB = new view.MovieClip();
+            movieB.asSingleImg("sprites/jump.png", 20, 27);
+            stage.addChild(movieB);
+            //movieB.scale(2, 2);
+            movieB.move(100, 100);
+
+            /////////////////////////////////////////////////////////////
+            //START RUNNING  by using Render's call back
+            /////////////////////////////////////////////////////////////
+            Render.addCallBack(gameRender);
+            Render.addFPSWatch($("body"), 500, 10);
+            Render.start();
+
+
+        }
+
+        var rvalue = 1;
+        function gameRender(timeDiff) {
+            stage.playUpdate(timeDiff);
+            rvalue++;
+            movieA.rotate(rvalue);
+            itemA.rotate(rvalue);
+        }
+
+        var testCount = 0;
+        function testClick() {
+        }
+
+
+    </script>
+</body>
+</html>

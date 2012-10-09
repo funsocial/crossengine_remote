@@ -1,0 +1,233 @@
+﻿<html>
+    <head>
+        <title></title>
+        <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+        <script type="text/javascript" src="../corejs/SourceInclude.js"></script>
+        <script type="text/javascript" src="../corejs/member/MemberLogin.js"></script>
+        <script type="text/javascript" src="../corejs/member/FormValidate.js"></script>
+        <script type="text/javascript">
+            window.globalFlag = true;
+            SourceInclude.includeCore();
+        </script>
+    </head>
+    <body>
+
+        <script src="https://connect.facebook.net/en_US/all.js"></script>
+        <script type="text/javascript">
+        
+            MemberLogin.initFBAndCheckLogin();
+                    
+            DebugView.setUp(document.body, 450, 10);
+            MemberLogin.onNotLogin = function() {
+                DebugView.trace(" MemberLogin -- onNotLogin");
+            }
+            MemberLogin.onLogin = function() {
+                DebugView.trace(" MemberLogin -- onLogin");
+            }
+            MemberLogin.onRegisterExist = function() {
+                DebugView.trace(" MemberLogin -- onRegisterExist");
+            }
+            MemberLogin.onRegisterDone = function() {
+                DebugView.trace(" MemberLogin -- onRegisterDone");
+            }
+            MemberLogin.onBasicLoginFail = function() {
+                DebugView.trace(" MemberLogin -- onBasicLoginFail");
+                $("#loginMsg").html("login fail");
+            }
+
+            MemberLogin.onFBRegisterNew = function(name, email){
+                 $("#fbRegScreenName").html(name);
+                 $("#fbRegEmail").val(email);
+            }
+            
+            function basicLogin() {
+                $("#loginMsg").html("");
+                var errorMsg = FormValidate.validate([{
+                    "value" : $("#loginEmail").val(),
+                    "error" : "please enter valid email",
+                    "type" : "email"
+                }, {
+                    "value" : $("#loginPassword").val(),
+                    "error" : "please enter valid password, as least 8 characters",
+                    "type" : "password"
+                }]);
+                if (errorMsg != "") {
+                    alert(errorMsg);
+                    return;
+                }
+                MemberLogin.basicLogin($("#loginEmail").val(), $("#loginPassword").val());
+            }
+
+            function register() {
+                $("#loginMsg").html("");
+                var errorMsg = FormValidate.validate([{
+                    "value" : $("#screenName").val(),
+                    "error" : "please enter screen Name",
+                    "type" : "empty"
+                }, {
+                    "value" : $("#regEmail").val(),
+                    "error" : "please enter valid email",
+                    "type" : "email"
+                }, {
+                    "value" : $("#regPassword").val(),
+                    "error" : "please enter valid password, as least 8 characters",
+                    "type" : "password"
+                }, {
+                    "value" : $("#regPasswordConfirm").val(),
+                    "error" : "password does not match in confirm field.",
+                    "type" : "same",
+                    "sameOn" : $("#regPassword").val()
+                }]);
+                if (errorMsg != "") {
+                    alert(errorMsg);
+                    return;
+                }
+                MemberLogin.register($("#regEmail").val(), $("#regPassword").val(), $("#screenName").val());
+            }
+            
+            function fbRegister() {
+                $("#FBRegMsg").html("");
+                var errorMsg = FormValidate.validate([{
+                    "value" : $("#fbRegPassword").val(),
+                    "error" : "please enter valid password, as least 8 characters",
+                    "type" : "password"
+                }, {
+                    "value" : $("#fbRegPasswordConfirm").val(),
+                    "error" : "password does not match in confirm field.",
+                    "type" : "same",
+                    "sameOn" : $("#fbRegPassword").val()
+                }]);
+                if (errorMsg != "") {
+                    alert(errorMsg);
+                    return;
+                }
+                MemberLogin.fbRegister($("#fbRegEmail").val(), $("#fbRegPassword").val());
+            }
+            
+            function loginWithFB() {
+                MemberLogin.loginWithFB();
+            }
+        </script>
+
+        <div id="panelLogin" style="width:320px; height:200px; background-color:#DDDDDD; display:block;">
+            <table border="0">
+                <tr>
+                    <td style="width:130px">email</td>
+                    <td style="width:170px">
+                    <input id="loginEmail" value="amo@aaabbb.com" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>
+                    <input type="password" id="loginPassword" value="12345678" />
+                    </td>
+                </tr>
+            </table>
+            <input onclick="basicLogin()" type="button" value ="login" />
+            <span id="loginMsg"></span>
+            <br />
+            <br />
+            <div>
+                Login with Facebook
+            </div>
+            <input onclick="loginWithFB()" type="button" value ="login with facebook" />
+        </div>
+
+        <br />
+
+        <div id="panelRegister" style="width:320px; height:260px; background-color:#EEEEEE; display:block;">
+            <div>
+                Register
+            </div>
+            <table border="0">
+                <tr>
+                    <td style="width:130px">screen name</td>
+                    <td style="width:170px">
+                    <input id="screenName" value="hello amo" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>
+                    <input id="regEmail" value="amo@aaabbb.com" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>
+                    <input id="regPassword" value="99998888" type="password" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>password confirm</td>
+                    <td>
+                    <input id="regPasswordConfirm" value="99998888" type="password" />
+                    </td>
+                </tr>
+            </table>
+            <input type="button" onclick="register()" value ="register" />
+            <br />
+            <br />
+            <div>
+                register with Facebook Account for quick access
+            </div>
+            <input type="button" value ="register with facebook" />
+            <span id="FBRegMsg">kkk</span>
+        </div>
+        
+        <br><br>
+        
+        <div id="panelFBRegister" style="width:320px; height:260px; background-color:#EEEEEE; display:block;">
+            <div>
+                FB Register
+            </div>
+            <table border="0">
+                <tr>
+                    <td style="width:130px">screen name</td>
+                    <td style="width:170px">
+                    <div id="fbRegScreenName"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>
+                        <input id="fbRegEmail" value="" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>
+                    <input id="fbRegPassword" value="99998888" type="password" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>password confirm</td>
+                    <td>
+                    <input id="fbRegPasswordConfirm" value="99998888" type="password" />
+                    </td>
+                </tr>
+            </table>
+            <input type="button" onclick="fbRegister()" value ="finish register" />
+        </div>
+
+        <br />
+        <br />
+
+        <div id="retrivePass" style="width:320px; height:100px; background-color:#DDDDDD; display:block;">
+            <div>
+                Password retrieve
+            </div>
+            <table border="0">
+                <tr>
+                    <td style="width:130px">email</td>
+                    <td style="width:170px">
+                    <input type="text" />
+                    </td>
+                </tr>
+            </table>
+            <input type="button" value ="retrieve password" />
+        </div>
+
+    </body>
+</html>

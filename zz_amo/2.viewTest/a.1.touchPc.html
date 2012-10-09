@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeUI();
+        SourceInclude.includeTween();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            background-color: #222222;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="touchDiv" style="background:transparent; border:2px solid #FFF;">
+    </div>
+    <script type="text/javascript">
+
+        var assetLoader;
+
+        $(document).ready(function () {
+
+            DebugView.setUp(document.body, 550, 100, 500, 300, false);
+            DebugView.addDiv(document.body, "movement", 550, 430, 500, 20, false);
+            DebugView.addDiv(document.body, "drag", 550, 480, 500, 20, false);
+
+            var touchDiv = new view.Display();
+            touchDiv.useDiv("touchDiv");
+            touchDiv.setSize("320", "356");
+            touchDiv.move(100, 100);
+            //touchDiv.rotate(45);
+            touchDiv.setSelectable(false);
+
+            traceDivA = new view.Display();
+            traceDivA.useDiv("traceDivA");
+            traceDivA.move(650, 20);
+            traceDivA.setSelectable(false);
+
+            traceDivB = new view.Display();
+            traceDivB.useDiv("traceDivB");
+            traceDivB.move(650, 50);
+            traceDivB.setSelectable(false);
+            
+            var touchArea = new core.TouchArea();
+            touchArea.setup({
+
+                target: touchDiv,
+
+                //一般螢幕使用滑鼠對應事件
+                mouseenter: testCallBack,
+                mouseleave: testCallBack,
+                click: testCallBack,
+                mousedown: testCallBack,
+                mouseup: testCallBack,
+                mouseup_outside: testCallBack,
+                mousemove: testCallBack,
+                mousedrag: testCallBack,
+                swipe: testCallBack,
+
+            });
+
+        });
+
+        function testCallBack(type, e, touchArea) {
+            if (type == "mousemove") {
+                tracePin("[" + touchArea.target.name + "] mouseMove " + e.pageX + " , " + e.pageY, "movement");
+                return;
+            }
+            if (type == "mousedrag") {
+                tracePin("[" + touchArea.target.name + "] mousedrag " + e.pageX + " , " + e.pageY + " local mouseDownAt: " + touchArea.atX + " , " + touchArea.atY, "drag");
+                return;
+            }
+            if (type == "mousedown") {
+                $(traceDivB.domDiv).html("[" + touchArea.target.name + "] mousedown " + e.pageX + " , " + e.pageY + " local mouseDownAt: " + touchArea.atX + " , " + touchArea.atY);
+            }
+            $(traceDivA.domDiv).html("");
+            trace("[" + touchArea.targetName + "] callback() " + type + " e: " + e);
+        }
+
+    </script>
+</body>
+</html>

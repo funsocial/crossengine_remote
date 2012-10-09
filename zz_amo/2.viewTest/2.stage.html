@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeTween();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            background-color:#FFFFFF;
+            color: #FFFFFF;
+        }
+
+        #stage {
+            background-color:#808080;
+        }
+
+        #mainContent {
+            overflow-x:hidden;
+            overflow-y:scroll;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="stage">
+
+        <div id="mainMenu" style="background-color:#ffd800;">
+            I am main menu
+        </div>
+
+        <div id="mainContent" style="background-color:#92de8d">
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A</p>
+            <p> a paragraph A END~~~~~~~~~~~~~~~</p>
+        </div>
+
+        <div id="footer" style="background-color:#50144b;">
+            I am footer
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            DebugView.setUp(document.body, 400, 30, 400, 200);
+
+            //建立stage物件並置入所有 div Display物件
+            //註：背景相關參數置入至body style
+            var stage = new view.Stage();
+            //initialize: function (useDiv, minWidth, minHeight, maxWidth, maxHeight)
+            stage.initialize("stage", "100%", "100%", "100%", "100%");
+
+            var mainMenu = new view.Display();
+            mainMenu.useDiv("mainMenu");
+            stage.setupChild(mainMenu);
+            mainMenu.setSize("800px", 50);
+            mainMenu.setAlign({ ha: "C", va: "T"}); //align to center top from engine
+
+            var mainContent = new view.Display();
+            mainContent.useDiv("mainContent", true);
+            mainContent.move(0, 50);
+            stage.setupChild(mainContent);
+            mainContent.setSizeMinMax("100%", "300px", "100%", "300px");
+
+            var footer = new view.Display();
+            footer.useDiv("footer");
+            stage.setupChild(footer);
+            footer.setSize("100%", 50);
+            footer.setCssEdgeAlign({ bottom: "0px" }); //use css method to aign item to bottom
+
+            stage.alignStage();
+   
+        });
+
+    </script>
+</body>
+</html>

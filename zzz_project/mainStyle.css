@@ -1,0 +1,85 @@
+﻿body {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-color: #000000;
+    font-family: 'Microsoft JhengHei', '微軟正黑體';
+    font-size: 15px;
+    color: #FFFFFF;
+    background: url(imgs/bk.jpg);
+    overflow-x:hidden;
+}
+
+
+img {
+    border: none;
+}
+
+h1 {
+    font-size: 18px;
+    padding: 0px;
+    margin: 0px;
+    font-weight: normal;
+    color: #d12f6e;
+}
+
+p {
+    line-height: 150%;
+}
+
+#mainMenu {
+    background: url('imgs/topBk.jpg') 0px 0px repeat-x;
+}
+
+#mainLogo {
+    padding: 7px;
+}
+
+#menuTable {
+    border-spacing: 0;
+}
+
+    #menuTable td {
+        -webkit-user-select: none;
+        user-select: none;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -o-user-select: none;
+        -ms-user-select: none;
+        padding: 0px 0px 0px 15px;
+        cursor: pointer;
+        width: 50%;
+        height: 50px;
+        background: url(imgs/btnBack.png) repeat-x 0px 0px;
+        border-top: 1px solid #e855a7;
+        border-right: 1px solid #c31f5f;
+        border-left: 1px solid #c31f5f;
+        border-bottom: 1px solid #c31f5f;
+        color: #FFFFFF;
+    }
+
+.menuTableArrow {
+    float: right;
+    padding: 1px 15px 0px 0px;
+}
+
+#footer {
+    color: #FFFFFF;
+    font-size: 12px;
+    font-family: Arial;
+    padding:10px 0px;
+    text-align: center;
+}
+
+.centerLoadingNote {
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    margin-top: -20px;
+    margin-left: -100px;
+    top: 50%;
+    left: 50%;
+    background-color: #f00;
+    text-align: center;
+}

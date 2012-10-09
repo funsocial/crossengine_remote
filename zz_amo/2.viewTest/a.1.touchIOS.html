@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeUI();
+        SourceInclude.includeTween();
+
+        //disable safari IOS drag behavior
+        //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, true);
+
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            background-color: #FF6600;
+            color: #FFFFFF;
+            overflow:hidden;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    <div id="touchDiv" style="background:transparent; border:2px solid #FFF;">
+    </div>
+
+    <script type="text/javascript">
+
+        var assetLoader;
+        var traceDivA;
+        var traceDivB;
+
+        //disable document drag on touch device
+        TouchArea.disableDocumentDrag();
+
+        $(document).ready(function () {
+
+            var offsetObj = DebugView.setUp(document.body, 390, 60, 600, 200, false);
+            //offset l , r , t , b
+            offsetObj = DebugView.addDiv(document.body, "interval", offsetObj.l, offsetObj.b + 10, 600, 150, false);
+            offsetObj = DebugView.addDiv(document.body, "mouse", offsetObj.l, offsetObj.b + 10, 600, 100, false);
+            //offsetObj = DebugView.addDiv(document.body, "drag", offsetObj.l, offsetObj.b + 10, 500, 20, false);
+            DebugView.addClearBtn(document.body, 390, 10);       
+
+            var touchDiv = new view.Display();
+            touchDiv.useDiv("touchDiv");
+            touchDiv.setSize("320", "356");
+            touchDiv.move(50, 50);
+            touchDiv.rotate(20);
+            touchDiv.setSelectable(false);
+
+            traceDivA = new view.Display();
+            traceDivA.useDiv("traceDivA");
+            traceDivA.move(400, 400);
+            traceDivA.setSelectable(false);
+
+            traceDivB = new view.Display();
+            traceDivB.useDiv("traceDivB");
+            traceDivB.move(400, 430);
+            traceDivB.setSelectable(false);
+
+            var touchArea = new core.TouchArea();
+
+            touchArea.setup({
+                target: touchDiv,
+
+                //PC對應事件
+                mousedown: testCallBack,
+                mouseup: testCallBack,
+                mousedrag: testCallBack,
+                mouseup_outside: testCallBack,
+
+                swipe: touchCallBack,
+
+                //有觸控螢幕時 使用 touch事件，設定對應事件
+                touchstart: touchCallBack,
+                touchmove: touchCallBack,
+                touchend: touchCallBack,
+                //每次interval 更新時 (30/1000秒)，取得滑鼠移動方向及差異
+                touch_interval: touchCallBack
+
+            });
+
+        });
+
+        function testCallBack(type, e, touchArea) {
+            //DebugView.trace("[" + touchArea.targetName + "] callback() " + type + " e: " + e);
+            trace("[" + touchArea.targetName + "]> " + type);
+        }
+
+        function touchCallBack(type, e, touchArea) {
+
+            switch (type) {
+
+                case "touchstart":
+                case "touchend":
+                case "swipe":
+                case "touchmove":
+                    //trace("[" + touchArea.targetName + "]> " + type + " local: " + localXYs.len);
+                    var localXYs = touchArea.getLocalXYs();
+                    if (localXYs) {
+                        var len = localXYs.length;
+                        var output = "";
+                        for (var s = 0; s < len; s++) {
+                            output += localXYs[s].x + " , " + localXYs[s].y+"<br>";
+                        }
+                        var rotate = Math.round(e.rotation * 100) / 100;
+                        var scale = Math.round(e.scale * 100) / 100;
+                        tracePin("localXY: <br>" + output + "<br>rot:" + rotate + " scale:" + scale, "mouse");
+                    }
+                    if (type != "touchmove") {
+                        trace("[" + touchArea.targetName + "]> " + type);
+                    }
+                    break;
+
+                //每次interval 更新時 (30/1000秒)，取得滑鼠移動方向及差異
+                case "touch_interval":
+                    var len = touchArea.touchsAtXY.length;
+                    //for output trace
+                    var output = "[current]<br>";
+                    var oldOutput = "[old]<br>";
+                    for (var s = 0; s < len; s++) {
+                        var touch = touchArea.touchsAtXY[s];
+                        output += touch.identifier + " page: " + touch.pageX + "," + touch.pageY + "<br>";
+                        //取得上次inteval更新x,y
+                        if (touchArea.touchsOldXY[touch.identifier]) {
+                            var oldOne = touchArea.touchsOldXY[touch.identifier];
+                            oldOutput += oldOne.identifier + " page: " + oldOne.pageX + "," + oldOne.pageY + "<br>";
+                        }
+                    }
+                    tracePin("touch_interval: <br>" + output + oldOutput, "interval");
+                    break;
+
+            }
+        }
+
+    </script>
+</body>
+</html>

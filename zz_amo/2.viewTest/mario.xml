@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:126d9dfde012ff0e18395866c53352af$ -->
+<TextureAtlas imagePath="mario.png">
+    <SubTexture name="fall" x="28" y="35" width="20" height="27"/>
+    <SubTexture name="jump" x="100" y="4" width="20" height="27"/>
+    <SubTexture name="stand" x="76" y="4" width="20" height="27"/>
+    <SubTexture name="swim00" x="52" y="4" width="20" height="27"/>
+    <SubTexture name="swim01" x="28" y="4" width="20" height="27"/>
+    <SubTexture name="swim02" x="4" y="97" width="20" height="27"/>
+    <SubTexture name="walk00" x="4" y="66" width="20" height="27"/>
+    <SubTexture name="walk01" x="4" y="35" width="20" height="27"/>
+    <SubTexture name="walk02" x="4" y="4" width="20" height="27"/>
+</TextureAtlas>

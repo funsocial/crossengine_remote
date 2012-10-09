@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- 
+        [測試] 顯示物件 讀取及UI
+    -->
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeCore();
+        SourceInclude.includeMediaCss();
+        SourceInclude.includeTween();
+        SourceInclude.includeUI();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainScreen">
+    </div>
+
+    
+    <script type="text/javascript">
+
+        //html page properties
+        var stage;
+
+        $(document).ready(function () {
+
+            //增加debugger | Render.js
+            DebugView.setUp(document.body, 400, 10);
+
+            //最外層stage 設定
+            stage = new viewjs.CStage();
+            stage.initialize("mainScreen", "#2a7185", "100%", "100%", "100%", "100%");
+            stage.setAlign({ w: "100%", h: "100%", ha: "C", va: "T" });
+
+            //首次手動設定align
+            stage.alignStage();
+
+            var assetLoader = new corejs.Loader();
+            assetLoader.initialize(["assets/fruitH.png","assets/fruitK.png","assets/xmlDataA.xml"]);
+            assetLoader.itemLoaded = function (result) { 
+                // itemLoaded Event
+                DebugView.trace("itemLoaded: " + result.fileName + " , " + result.pos);
+            }
+            assetLoader.allItemLoaded = function (result) { 
+                // allItemLoaded Event
+                DebugView.trace("allItemLoaded: " + result.fileName + " , " + result.pos);
+                DebugView.trace("xml: " + assetLoader.assets["xmlDataA.xml"]);
+            }
+            assetLoader.load();
+
+
+        });
+
+    </script>
+</body>
+</html>

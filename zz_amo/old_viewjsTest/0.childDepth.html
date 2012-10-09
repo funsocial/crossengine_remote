@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- 
+        [測試] 顯示物件 addchild 與 depth control
+    -->
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeCore();
+        SourceInclude.includeMediaCss();
+        SourceInclude.includeTween();
+        SourceInclude.includeUI();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 主要使用 div, stage -->
+    <div id="mainScreen">
+        <div id="contentA">contentA-200x200<br />move(300,100)</div>
+        <div id="contentB">contentB-100x100<br />move(50,50)</div>
+        <div id="contentC">contentC-100x100<br />move(100,300)</div>
+        <div id="contentD">contentD-70x70<br />move(20,20)</div>
+    </div>
+
+    <!-- stage 外之div 設定CDispay物件後置入至mainScreen -->
+    <div id="outItemA">
+        outItemA 150x150
+    </div>
+
+    <div id="outItemB">
+        outItemB
+        <div id="outItemB-1">
+            outItemB-1
+        </div>
+        <div id="outItemB-2">
+            outItemB-2
+        </div>
+    </div>
+
+    
+    <script type="text/javascript">
+
+        //html page properties
+        var mainMenu;
+        var stage;
+
+        DebugView.setUp(document.body, 800, 50, 800,200);
+
+        $(document).ready(function () {
+
+            //增加debugger | Render.js
+            //DebugView.setUp(document.body, 10, 10);
+ 
+
+            //最外層stage 設定
+            stage = new viewjs.CStage();
+            stage.initialize("mainScreen", "#53777A", "100%", "100%", "100%", "100%");
+            stage.setAlign({ w: "100%", h: "100%", ha: "C", va: "T" });
+
+            var contentA = new viewjs.CDisplay();
+            contentA.useDiv("contentA");
+            contentA.fillBackground("#AABBCC", 200, 200);
+
+            var contentB = new viewjs.CDisplay();
+            contentB.useDiv("contentB");
+            contentB.fillBackground("#CC9900", 100, 100);
+
+            var contentC = new viewjs.CDisplay();
+            contentC.useDiv("contentC");
+            contentC.fillBackground("#CC3333", 100, 100);
+
+            var contentD = new viewjs.CDisplay();
+            contentD.useDiv("contentD");
+            contentD.fillBackground("#339933", 70, 70);
+
+            var outItemA = new viewjs.CDisplay();
+            outItemA.useDiv("outItemA");
+            outItemA.fillBackground("#776655", 150, 150);
+
+            contentA.move(300, 100);
+            contentB.move(50, 50);
+            contentC.move(100, 300);
+            contentD.move(20, 20);
+
+            //增加child設定z-軸 
+            stage.addChild(contentA,50);
+            stage.addChild(contentB,100);
+            stage.addChild(contentC);
+            stage.addChild(contentD);
+
+            contentA.addChild(contentB);
+            contentC.addChild(contentD);
+
+            contentA.rotate(30);
+
+            //add the contentB back to stage
+            //stage.addChild(contentB);
+
+            stage.addChild(outItemA,150);
+            outItemA.move(400, 250);
+            outItemA.addChild(contentB);
+
+            //首次手動設定align
+            stage.alignStage();
+
+        });
+    </script>
+</body>
+</html>

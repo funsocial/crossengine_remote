@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- 
+        [測試] 
+    -->
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeTween();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            overflow:hidden;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="newDiv" style="background-color:#335566; width:300px; height: 150px;">
+        
+        new Div
+        
+        <div id="childDiv" style="background-color:#227c1e; width:100px; height: 50px;">
+            child
+        </div>
+
+    </div>
+
+    <div id="outsideChild" style="background-color:#188296; width:100px; height: 50px;">
+            outsideChild
+    </div>
+
+    <div id="childForRemove" style="background-color:#ff6a00; width:150px; height: 50px;">
+            childForRemove
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            DebugView.setUp(document.body, 600, 50, 400, 200);
+
+            //Dispatcher class 測試
+            //=========================================================================
+            var dispA = new view.Dispatcher();
+            dispA.addListener("fireEvent", function (e) {
+                //alert("fireEvent called : " + e.type+" | "+e.value);
+            });
+            dispA.dispatchEvent("fireEvent", { type: "eventType", value: 12345 });
+            //=========================================================================
+
+
+            var newDiv = new view.Display();
+            newDiv.useDiv("newDiv", true);
+
+            var childDiv = new view.Display();
+            childDiv.useDiv("childDiv", true);
+
+            var outsideChild = new view.Display();
+            outsideChild.useDiv("outsideChild", true);
+
+            var childForRemove = new view.Display();
+            childForRemove.useDiv("childForRemove", true);
+
+            //html架構中 已為 child之物件，設定view對應方式
+            newDiv.setupChild(childDiv);
+
+            //增加 html架構中 不為 child tag之 div
+            newDiv.addChild(outsideChild);
+
+            childDiv.move(50, 50);
+            childDiv.rotate(20);
+
+            outsideChild.move(120, 50);
+            outsideChild.scale(1.5, 2);
+            //outsideChild.setSelectable(false);
+
+            newDiv.addChild(childForRemove);
+
+            newDiv.removeChild(childForRemove);
+
+            childDiv.tween(1,{deg:180});
+            newDiv.tween(5,{x:500, y:300, deg: 20});
+
+        });
+
+    </script>
+</body>
+</html>

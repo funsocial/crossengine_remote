@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>1.facadeProxy</title>
+    <script src="../../corejs/mvc/MvcBase.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcCommand.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcFacade.js" type="text/javascript"></script>
+    <script src="../../corejs/mvc/MvcProxy.js" type="text/javascript"></script>
+</head>
+<body>
+    <script type="text/ecmascript">
+
+        //建立新facade class
+        var myFacade = new mvcjs.MvcFacade("myFacade");
+
+        //衍伸測試 TestProxy
+        //####################################################################################
+        this.testns = this.testns || {};
+        (function () {
+            TestProxy = function () {
+                //新建後則建立static reference 幫助快速找尋
+                //如果該Proxy可能用在多個facade於同一個專案、建議不以static function 取得class)
+                if(testns.TestProxy.instance==null) testns.TestProxy.instance = this;
+            }
+            //-------------------------------------------------------------------
+            //[--PUBLIC--] Properties | Functions
+            //-------------------------------------------------------------------
+            var p = TestProxy.prototype = new mvcjs.MvcProxy();
+            //!! 設定ClassFullName
+            p.getClassName = function () {
+                return "testns.TestProxy";
+            }
+            p.getData = function () {
+                alert("getting data ~ ");
+            }
+            //static name reference
+            TestProxy.NAME = "testns.TestProxy";
+            testns.TestProxy = TestProxy;
+        }());
+                
+        
+        //####################################################################################
+        var t1 = new testns.TestProxy();
+        myFacade.addProxy(t1);
+        var t2 = new testns.TestProxy();
+        myFacade.addProxy(t2); //error only once instance of proxy may exist
+
+
+        //取得proxy
+        myFacade.getProxy("testns.TestProxy").getData();
+        //快速取得 (如果該Proxy可能用在多個facade於同一個專案、建議不以static function 取得class) 
+        testns.TestProxy.instance.getData();
+
+        //移除proxy, 移除 instance reference 及 facade 中 reference
+        testns.TestProxy.instance.removeSelf();
+
+        alert("testns.TestProxy instance? " + testns.TestProxy.instance);
+        alert("testns.TestProxy in facade? " + myFacade.getProxy("testns.TestProxy"));
+
+    </script>
+</body>
+</html>

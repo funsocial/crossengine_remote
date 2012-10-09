@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- 
+        [測試] 顯示物件 & button
+    -->
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+		SourceInclude.baseURL = "../../";
+        SourceInclude.includeCore();
+        SourceInclude.includeMediaCss();
+        SourceInclude.includeTween();
+        SourceInclude.includeUI();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            overflow:hidden;
+        }
+        
+        /* ui.CButton 對應 css 按鈕 style */
+        .btnNormal {
+            width:120px; /* padding 15px both left right makes it 150px */
+            background-color: #D95B43;
+            color:#FFFFFF;
+            padding:15px;
+            height:50px;
+            text-align:center;
+            cursor:pointer;
+            display:block;
+        }
+        .btnHover {
+            background-color: #C02942;
+        }
+        .btnClick {
+            background-color: #ECD078;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainScreen">
+        <div id="mainMenu">
+            <table border="0" cellspacing="0" cellpadding="0" style="margin:auto;">
+                <tr>
+                    <td><div class="btnNormal" id="mainBtn1">hover & click</div></td>
+                    <td><div class="btnNormal" id="mainBtn2">click only</div></td>
+                    <td><div class="btnNormal" id="mainBtn3">hover Tween</div></td>
+                    <td><div class="btnNormal" id="mainBtn4">image button</div></td>
+                    <td><div class="btnNormal" id="mainBtn5">image tween</div></td>
+                    <td><div class="btnNormal" id="mainBtn6">image tween(H)</div></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    
+
+    
+    <script type="text/javascript">
+
+        //html page properties
+        var mainMenu;
+        var stage;
+
+        $(document).ready(function () {
+
+            //增加debugger | Render.js
+            //DebugView.setUp(document.body, 10, 10);
+            //DebugView.trace("doc ready");
+
+            //最外層stage 設定
+            stage = new viewjs.CStage();
+            stage.initialize("mainScreen", "100%", "100%", "100%", "100%");
+            stage.setAlign({ w: "100%", h: "100%", ha: "C", va: "T" });
+
+            mainMenu = new viewjs.CDisplay();
+            mainMenu.useDiv("mainMenu");
+            stage.addChild(mainMenu);
+            mainMenu.fillBackground("#542437", "100%", "50");
+            mainMenu.setAlign({ w: "100%", h: 50, ha: "L", va: "B" });
+
+            //設定選單 menu ，不需設定 position  absolute
+            //選單已在 mainMenu child tag 中 ， 不需執行 addChild
+            //-------------------------------------------------------------------
+            var btn1 = new ui.CButton();
+            btn1.useDiv("mainBtn1", false); // does not use absolute positioning
+            btn1.setSelectable(false);
+            btn1.asCssButton("btnHover", "btnClick");
+
+            ////設定選單按鈕為只有click時改變，適用觸碰螢幕裝置
+            ////-------------------------------------------------------------------
+            var btn2 = new ui.CButton();
+            btn2.useDiv("mainBtn2", false); // does not use absolute positioning
+            btn2.setSelectable(false);
+            btn2.asCssButton(null, "btnClick");
+
+            ////設定為使用tween hover
+            ////-------------------------------------------------------------------
+            var btn3 = new ui.CButton();
+            btn3.useDiv("mainBtn3", false);
+            btn3.setSelectable(false);
+            //tween use TweenMax
+            btn3.asTweenHoverButton( .3,
+                { css: { backgroundColor: "#FF0000" } },
+                { css: { backgroundColor: "#D95B43" } });
+            
+
+            ////設定為使用單一image按鈕 按鈕不同state用同一張圖高度排列做區分
+            ////-------------------------------------------------------------------
+            var btn4 = new ui.CButton();
+            btn4.useDiv("mainBtn4", false);
+            btn4.setSelectable(false);
+            //asImageButton = function (imagePath, hasHover, hasClick, width, rowHeight)
+            btn4.asImageButton("btn.png", true, true, 120, 50);
+
+            ////設定為tween background位移按鈕
+            ////-------------------------------------------------------------------
+            var btn5 = new ui.CButton();
+            btn5.useDiv("mainBtn5", false);
+            btn5.setSelectable(false);
+            //btnGradient.png, btnShape.png
+            //(imagePath, hasHover, hasClick, width, height, gapSize, clickPos, direction, time)
+            btn5.asTweenImageButton("btnShape.png", true, true, 120, 50, 100, -150, "v", .3);
+
+
+            ////設定為tween background位移horizontal按鈕
+            ////-------------------------------------------------------------------
+            var btn6 = new ui.CButton();
+            btn6.useDiv("mainBtn6",false);
+            btn6.setSelectable(false);
+            //btnGradient.png, btnShape.png
+            //(imagePath, hasHover, hasClick, width, height, gapSize, clickPos, direction, time)
+            btn6.asTweenImageButton("btnHShape.png", true, true, 120, 50, 300, -450, "h", .3);
+
+            ////btn event fire, click 事件
+            ////-------------------------------------------------------------------
+            //btn3.onClick(function () {
+            //    alert("btn3 clicked!");
+            //});
+
+            //位移對應做標
+            //btn6.move(0, -300);
+
+            //首次手動設定align
+            stage.alignStage();
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+﻿<!DOCTYPE>
+<html lang="zh-tw">
+
+<head>
+    <title>SexyFit 專業空中舞教室</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeUI();
+        SourceInclude.includeTween();
+    </script>
+    <link rel="stylesheet" href="mainStyle.css" />
+
+</head>
+<body>
+
+    <div id="loadingCover">
+        <div class="centerLoadingNote">loading</div>
+    </div>
+
+    <div id="mainScreen">
+
+        <div id="mainMenu">
+            <div id="mainLogo">
+                <img src="imgs/logo.png" /></div>
+            <!--點選後出現選單清單-->
+            <div id="mainMenuBtn"></div>
+            <!-- 主選單清單-->
+            <div id="mainMenuList">
+                <table style="width: 100%" id="menuTable">
+                    <tr>
+                        <td>關於SexyFit<img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                        <td>課程介紹
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    </tr>
+                    <tr>
+                        <td>媒體/報導
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                        <td>上課紀錄
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    </tr>
+                    <tr>
+                        <td>線上像簿
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                        <td>Q &amp; A
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    </tr>
+                    <tr>
+                        <td>私人課程報名表
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                        <td>團體班報名表
+                        <img class="menuTableArrow" src="imgs/btnWhiteArrow.png" /></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 主要內容物 -->
+            <div id="content" style="width:100%;">
+                <div id="contentHolder"></div>
+                <div id="footer">SexyFit 專業空中舞教室 © 2012.</div>
+            </div>
+
+            
+
+    </div>
+
+    <script type="text/javascript">
+
+        var menuTable;
+        var loadingCover;
+        var menuListCurrentOn = null;
+
+        $(document).ready(function () {
+
+            //DebugView.setUp(document.body, 200, 30, 400, 200);
+
+            var mainScreen = new view.Display();
+            mainScreen.useDiv("mainScreen");
+            mainScreen.setSize("100%", "300px");
+
+            var content = new view.Display();
+            content.useDiv("content");
+            content.move(0, 50);
+            mainScreen.setupChild(content);
+
+            var mainMenuList = new view.Display();
+            mainMenuList.useDiv("mainMenuList");
+            mainScreen.setupChild(mainMenuList);
+            mainMenuList.setSize("100%", "200px");
+            mainMenuList.move(0, 52);
+            mainMenuList.setMask();
+
+            //將menuTable置入 mainMenuList
+            menuTable = new view.Display();
+            menuTable.useDiv("menuTable");
+            menuTable.setSize("100%", "200px");
+            mainMenuList.setupChild(menuTable);
+            menuTable.move(0, -200);
+
+            var mainMenu = new view.Display();
+            mainMenu.useDiv("mainMenu");
+            mainMenu.setSize("100%", "52px");
+            mainScreen.setupChild(mainMenu);
+
+            var mainLogo = new view.Display();
+            mainLogo.useDiv("mainLogo");
+            mainScreen.setupChild(mainLogo);
+
+            var mainMenuBtn = new ui.Button();
+            mainMenuBtn.useDiv("mainMenuBtn");
+            mainMenuBtn.asImageButton("imgs/menuTabBtn.png", false, true, 87, 31);
+            mainMenuBtn.setAlign({ ha: "R", va: "T", voff: 21, hoff: -20 });
+            mainScreen.setupChild(mainMenuBtn);
+
+            //tableButton 點選high light
+            $("#menuTable td").on("mousedown", function () {
+                menuListCurrentOn = $(this);
+                $(this).css({ backgroundPosition: "0px -50px" });
+            });
+            $(document).on("mouseup", function () {
+                if (menuListCurrentOn != null) {
+                    $(menuListCurrentOn).css({ backgroundPosition: "0px 0px" });
+                    menuListCurrentOn = null;
+                    menuOut();
+                }
+            });
+
+            mainMenuBtn.onClick(menuBtnClick);
+            mainScreen.alignUpdate();
+
+            $(window).resize(function () {
+                mainScreen.alignUpdate();
+            });
+
+            loadingCover = new ui.LoadingCover();
+            loadingCover.useDiv("loadingCover");
+            //width, height, backGround, alpha, zIndex
+            loadingCover.setup("100%", "100%", "#000000", .8, 1000);
+            loadingCover.hide();
+
+            $('#contentHolder').load("about.html");
+
+        });
+
+        var menuOpen = false;
+        function menuIn() {
+            menuTable.tween(.3, { y: 0, ease: Power2.easeOut });
+            menuOpen = true;
+        }
+        function menuOut() {
+            menuTable.tween(.3, { y: -200, ease: Power2.easeIn });
+            menuOpen = false;
+        }
+        function menuBtnClick() {
+            if (menuOpen) menuOut();
+            if (!menuOpen) menuIn();
+        }
+
+
+        function loadContent(path) {
+            loadingCover.show();
+            loadingCover.setAlpha(0);
+            loadingCover.tween(.5, {
+                alpha: .8, onComplete: function () {
+                    $('#contentHolder').load(path + ".html", function () {
+                        loadingCover.tweenHide(.5, { alpha: 0 });
+                    });
+                }
+            });
+        }
+
+    </script>
+
+</body>
+</html>

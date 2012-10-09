@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeUI();
+        SourceInclude.includeTween();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 10px;
+            background-color: #222222;
+            color: #FFFFFF;
+        }
+        /* 對應scrollTrack CSS */
+        .scrollTrackA {
+            background-color: #dcdebd;
+        }
+        .scrollButtonA {
+            background-color: #ff6a00;
+        }
+        /*!!!! for some reason hover and click must listed after the button STYLE*/
+        .scrollHover {
+            background-color: #fac04f;
+        }
+        .scrollClick {
+            background-color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 透過使用 css 設定 style，透過class參數區分ui -->
+    <div id="scrollA">
+        <div class="scrollTrack"></div>
+        <div class="scrollButton"></div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            DebugView.setUp(document.body, 400, 30, 400, 200);
+
+            var scroll = new ui.Scroll();
+            var scrollSetting = {
+                trackCss: "scrollTrackA",
+                buttonCss: "scrollButtonA",
+                buttonHoverCss: "scrollHover",
+                buttonClickCss: "scrollClick",
+                width: "30px", height: "500px",
+                fixBtnW: "30px", fixBtnH: "80px",
+            };
+            scroll.setup("scrollA", scrollSetting);
+            //scroll.fixButtonSize(30, 80);
+
+        });
+
+    </script>
+</body>
+</html>

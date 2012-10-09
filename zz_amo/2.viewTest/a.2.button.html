@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeBase();
+        SourceInclude.includeView();
+        SourceInclude.includeUI();
+        SourceInclude.includeTween();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 10px;
+            background-color: #222222;
+            color: #FFFFFF;
+        }
+        /* ui.CButton 對應 css 按鈕 style */
+        .btnNormal {
+            background-color: #D95B43;
+        }
+
+        .btnHover {
+            background-color: #C02942;
+        }
+
+        .btnDown {
+            background-color: #ECD078;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="imageButtonA">imageButtonA</div>
+    <div id="imageButtonB">imageButtonB</div>
+    <div id="imageButtonC">imageButtonC</div>
+    <div id="cssButtonA">cssButtonA</div>
+
+    <script type="text/javascript">
+
+        var assetLoader;
+
+        $(document).ready(function () {
+
+            DebugView.setUp(document.body, 400, 150, 400, 200);
+
+            var imageButtonA = new ui.Button();
+            imageButtonA.useDiv("imageButtonA");
+            imageButtonA.asImageButton({
+                imgPath: "btn.png", width: 120, height: 50, 
+                hoverX: 0, hoverY:-50,
+                clickX:0 , clickY: -100,
+            });
+            imageButtonA.clickCallBack = function (type, e, touchArea) {
+                //trace("imageButtonA.clickCallBack->  "+type);
+            }
+
+            var imageButtonB = new ui.Button();
+            imageButtonB.useDiv("imageButtonB");
+            imageButtonB.move(0, 100);
+            imageButtonB.asImageButton({
+                imgPath: "btnShape.png", width: 120, height: 50,
+                hoverX: 0, hoverY: -100, hoverTween: .5,
+                clickX: 0, clickY: -150,
+            });
+
+            var imageButtonC = new ui.Button();
+            imageButtonC.useDiv("imageButtonC");
+            imageButtonC.move(0, 200);
+            imageButtonC.asImageButton({
+                imgPath: "btnHShape.png", width: 120, height: 50,
+                hoverX: -300, hoverY: 0, hoverTween: .5,
+                clickX: -450, clickY: 0,
+            });
+
+            var cssButtonA = new ui.Button();
+            cssButtonA.useDiv("cssButtonA");
+            cssButtonA.move(0, 300);
+            cssButtonA.asCssButton({
+                width: 120, height: 50,
+                normalCss: "btnNormal", hoverCss: "btnHover", downCss: "btnDown"
+            });
+
+
+        });
+
+    </script>
+</body>
+</html>

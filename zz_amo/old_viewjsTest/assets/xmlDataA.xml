@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<datas>
+  <cat name="股票" catid="1">
+    <sub name="台灣股票1" subid="11">
+      <item name="產品區域台灣" itemid="121" eid="1"></item>
+      <item name="產品區域香港" itemid="122" eid="2"></item>
+      <item name="產品區域中國" itemid="123" eid="3"></item>
+      <item name="產品區域大中華" itemid="124" eid="4"></item>
+      <item name="產品區域亞洲" itemid="125" eid="5"></item>
+      <item name="產品區域日本" itemid="121" eid="6"></item>
+      <item name="產品區域韓國" itemid="122" eid="7"></item>
+      <item name="產品區域泰國" itemid="123" eid="8"></item>
+      <item name="產品區域新加坡" itemid="124" eid="9"></item>
+      <item name="產品區域馬來西亞" itemid="125" eid="10"></item>
+      <item name="產品區域東南亞" itemid="121" eid="11"></item>
+      <item name="產品區域印度" itemid="122" eid="12"></item>
+      <item name="產品區域中東非洲" itemid="124" eid="13"></item>
+      <item name="產品區域新興歐洲" itemid="124" eid="14"></item>
+      <item name="產品區域俄羅斯" itemid="125" eid="15"></item>
+      <item name="產品區域新興市場" itemid="121" eid="16"></item>
+      <item name="產品區域拉丁美洲" itemid="124" eid="17"></item>
+      <item name="產品區域巴西" itemid="123" eid="18"></item>
+      <item name="產品區域美國" itemid="124" eid="19"></item>
+      <item name="產品區域英國" itemid="125" eid="20"></item>
+      <item name="產品區域澳洲" itemid="121" eid="21"></item>
+      <item name="產品區域加拿大" itemid="122" eid="22"></item>
+      <item name="產品區域全球" itemid="123" eid="23"></item>
+      <item name="產品區域歐洲" itemid="124" eid="24"></item>
+      <item name="產品區域已開發國家" itemid="125" eid="25"></item>
+    </sub>
+    <sub name="亞洲股票1" subid="12">
+      <item name="產品區域台灣" itemid="121" eid="1"></item>
+      <item name="產品區域香港" itemid="122" eid="2"></item>
+      <item name="產品區域中國" itemid="123" eid="3"></item>
+      <item name="產品區域大中華" itemid="124" eid="4"></item>
+      <item name="產品區域亞洲" itemid="125" eid="5"></item>
+      <item name="產品區域日本" itemid="121" eid="6"></item>
+      <item name="產品區域韓國" itemid="122" eid="7"></item>
+      <item name="產品區域泰國" itemid="123" eid="8"></item>
+      <item name="產品區域新加坡" itemid="124" eid="9"></item>
+      <item name="產品區域馬來西亞" itemid="125" eid="10"></item>
+      <item name="產品區域東南亞" itemid="121" eid="11"></item>
+      <item name="產品區域印度" itemid="122" eid="12"></item>
+      <item name="產品區域中東非洲" itemid="124" eid="13"></item>
+      <item name="產品區域新興歐洲" itemid="124" eid="14"></item>
+      <item name="產品區域俄羅斯" itemid="125" eid="15"></item>
+      <item name="產品區域新興市場" itemid="121" eid="16"></item>
+      <item name="產品區域拉丁美洲" itemid="124" eid="17"></item>
+      <item name="產品區域巴西" itemid="123" eid="18"></item>
+      <item name="產品區域美國" itemid="124" eid="19"></item>
+      <item name="產品區域英國" itemid="125" eid="20"></item>
+      <item name="產品區域澳洲" itemid="121" eid="21"></item>
+      <item name="產品區域加拿大" itemid="122" eid="22"></item>
+      <item name="產品區域全球" itemid="123" eid="23"></item>
+      <item name="產品區域歐洲" itemid="124" eid="24"></item>
+      <item name="產品區域已開發國家" itemid="125" eid="25"></item>
+    </sub>
+    <sub name="美洲股票1" subid="13">
+      <item name="美洲股票產品1" itemid="131" eid="2"></item>
+      <item name="美洲股票產品2" itemid="132" eid="3"></item>
+      <item name="美洲股票產品3" itemid="133" eid="4"></item>
+      <item name="美洲股票產品4" itemid="134" eid="5"></item>
+      <item name="美洲股票產品5" itemid="135" eid="6"></item>
+    </sub>
+    <sub name="歐洲股票1" subid="14">
+      <item name="歐洲股票產品1" itemid="141" eid="7"></item>
+      <item name="歐洲股票產品2" itemid="142" eid="8"></item>
+      <item name="歐洲股票產品3" itemid="143" eid="9"></item>
+      <item name="歐洲股票產品4" itemid="144" eid="10"></item>
+      <item name="歐洲股票產品5" itemid="145" eid="11"></item>
+    </sub>
+    <sub name="新興市場股票1" subid="15">
+      <item name="新興市場股票產品1" itemid="151" eid="12"></item>
+      <item name="新興市場股票產品2" itemid="152" eid="13"></item>
+      <item name="新興市場股票產品3" itemid="153" eid="14"></item>
+      <item name="新興市場股票產品4" itemid="154" eid="15"></item>
+      <item name="新興市場股票產品5" itemid="155" eid="16"></item>
+    </sub>
+    <sub name="台灣股票測試分類2" subid="11">
+      <item name="台灣股票產品1" itemid="111" eid="17"></item>
+      <item name="台灣股票產品2" itemid="112" eid="18"></item>
+      <item name="台灣股票產品3" itemid="113" eid="19"></item>
+      <item name="台灣股票產品4" itemid="114" eid="20"></item>
+      <item name="台灣股票產品5" itemid="115" eid="1"></item>
+    </sub>
+    <sub name="亞洲股測試分類票2" subid="12">
+      <item name="亞洲股票產品1" itemid="121" eid="21"></item>
+      <item name="亞洲股票產品2" itemid="122" eid="22"></item>
+      <item name="亞洲股票產品3" itemid="123" eid="23"></item>
+      <item name="亞洲股票產品4" itemid="124" eid="1"></item>
+      <item name="亞洲股票產品5" itemid="125" eid="1"></item>
+    </sub>
+    <sub name="美洲股測試分類票2" subid="13">
+      <item name="美洲股票產品1" itemid="131" eid="1"></item>
+      <item name="美洲股票產品2" itemid="132" eid="1"></item>
+      <item name="美洲股票產品3" itemid="133" eid="1"></item>
+      <item name="美洲股票產品4" itemid="134" eid="1"></item>
+      <item name="美洲股票產品5" itemid="135" eid="1"></item>
+    </sub>
+    <sub name="歐洲股票測試分類2" subid="14">
+      <item name="歐洲股票產品1" itemid="141" eid="1"></item>
+      <item name="歐洲股票產品2" itemid="142" eid="1"></item>
+      <item name="歐洲股票產品3" itemid="143" eid="1"></item>
+      <item name="歐洲股票產品4" itemid="144" eid="1"></item>
+      <item name="歐洲股票產品5" itemid="145" eid="1"></item>
+    </sub>
+    <sub name="新興市場股票測試分類2" subid="15">
+      <item name="新興市場股票產品1" itemid="151" eid="1"></item>
+      <item name="新興市場股票產品2" itemid="152" eid="1"></item>
+      <item name="新興市場股票產品3" itemid="153" eid="1"></item>
+      <item name="新興市場股票產品4" itemid="154" eid="1"></item>
+      <item name="新興市場股票產品5" itemid="155" eid="1"></item>
+    </sub>
+  </cat>
+  <cat name="債卷" catid="2">
+    <sub name="台灣債卷" subid="21">
+      <item name="台灣債卷產品1" itemid="211" eid="1"></item>
+      <item name="台灣債卷產品2" itemid="212" eid="1"></item>
+      <item name="台灣債卷產品3" itemid="213" eid="1"></item>
+      <item name="台灣債卷產品4" itemid="214" eid="1"></item>
+      <item name="台灣債卷產品5" itemid="215" eid="1"></item>
+    </sub>
+    <sub name="亞洲債卷" subid="22">
+      <item name="亞洲債卷產品1" itemid="221" eid="1"></item>
+      <item name="亞洲債卷產品2" itemid="222" eid="1"></item>
+      <item name="亞洲債卷產品3" itemid="223" eid="1"></item>
+      <item name="亞洲債卷產品4" itemid="224" eid="1"></item>
+      <item name="亞洲債卷產品5" itemid="225" eid="1"></item>
+    </sub>
+    <sub name="美洲債卷" subid="23">
+      <item name="美洲債卷產品1" itemid="231" eid="1"></item>
+      <item name="美洲債卷產品2" itemid="232" eid="1"></item>
+      <item name="美洲債卷產品3" itemid="233" eid="1"></item>
+      <item name="美洲債卷產品4" itemid="234" eid="1"></item>
+      <item name="美洲債卷產品5" itemid="235" eid="1"></item>
+    </sub>
+  </cat>
+  <cat name="平衡" catid="3">
+    <sub name="美洲平衡" subid="31">
+      <item name="美洲平衡產品1" itemid="311" eid="1"></item>
+      <item name="美洲平衡產品2" itemid="312" eid="1"></item>
+      <item name="美洲平衡產品3" itemid="313" eid="1"></item>
+      <item name="美洲平衡產品4" itemid="314" eid="1"></item>
+      <item name="美洲平衡產品5" itemid="315" eid="1"></item>
+    </sub>
+    <sub name="歐洲平衡" subid="32">
+      <item name="歐洲平衡產品1" itemid="321" eid="1"></item>
+      <item name="歐洲平衡產品2" itemid="322" eid="1"></item>
+      <item name="歐洲平衡產品3" itemid="323" eid="1"></item>
+      <item name="歐洲平衡產品4" itemid="324" eid="1"></item>
+      <item name="歐洲平衡產品5" itemid="325" eid="1"></item>
+    </sub>
+    <sub name="新興市場平衡" subid="33">
+      <item name="新興市場平衡產品1" itemid="331" eid="1"></item>
+      <item name="新興市場平衡產品2" itemid="332" eid="1"></item>
+      <item name="新興市場平衡產品3" itemid="333" eid="1"></item>
+      <item name="新興市場平衡產品4" itemid="334" eid="1"></item>
+      <item name="新興市場平衡產品5" itemid="335" eid="1"></item>
+    </sub>
+  </cat>
+  <cat name="產業" catid="4">
+    <sub name="美洲產業" subid="41">
+      <item name="美洲產業產品1" itemid="411" eid="1"></item>
+      <item name="美洲產業產品2" itemid="412" eid="1"></item>
+      <item name="美洲產業產品3" itemid="413" eid="1"></item>
+      <item name="美洲產業產品4" itemid="414" eid="1"></item>
+      <item name="美洲產業產品5" itemid="415" eid="1"></item>
+    </sub>
+    <sub name="歐洲產業" subid="42">
+      <item name="歐洲產業產品1" itemid="421" eid="1"></item>
+      <item name="歐洲產業產品2" itemid="422" eid="1"></item>
+      <item name="歐洲產業產品3" itemid="423" eid="1"></item>
+      <item name="歐洲產業產品4" itemid="424" eid="1"></item>
+      <item name="歐洲產業產品5" itemid="425" eid="1"></item>
+    </sub>
+    <sub name="新興市場產業" subid="43">
+      <item name="新興市場產業產品1" itemid="431" eid="1"></item>
+      <item name="新興市場產業產品2" itemid="432" eid="1"></item>
+      <item name="新興市場產業產品3" itemid="433" eid="1"></item>
+      <item name="新興市場產業產品4" itemid="434" eid="1"></item>
+      <item name="新興市場產業產品5" itemid="435" eid="1"></item>
+    </sub>
+  </cat>
+  <cat name="貨幣" catid="5">
+    <sub name="歐洲貨幣" subid="51">
+      <item name="歐洲貨幣產品1" itemid="511" eid="1"></item>
+      <item name="歐洲貨幣產品2" itemid="512" eid="1"></item>
+      <item name="歐洲貨幣產品3" itemid="513" eid="1"></item>
+      <item name="歐洲貨幣產品4" itemid="514" eid="1"></item>
+      <item name="歐洲貨幣產品5" itemid="515" eid="1"></item>
+    </sub>
+    <sub name="新興市場貨幣" subid="52">
+      <item name="新興市場貨幣產品1" itemid="521" eid="1"></item>
+      <item name="新興市場貨幣產品2" itemid="522" eid="1"></item>
+      <item name="新興市場貨幣產品3" itemid="523" eid="1"></item>
+      <item name="新興市場貨幣產品4" itemid="524" eid="1"></item>
+      <item name="新興市場貨幣產品5" itemid="525" eid="1"></item>
+    </sub>
+  </cat>
+</datas>

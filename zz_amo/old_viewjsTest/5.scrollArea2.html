@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" target-densitydpi="device-dpi" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <script type="text/javascript" src="../../corejs/SourceInclude.js"></script>
+    <script type="text/javascript">
+        SourceInclude.baseURL = "../../";
+        SourceInclude.includeCore();
+        SourceInclude.includeMediaCss();
+        SourceInclude.includeTween();
+        SourceInclude.includeUI();
+    </script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .scrollArea {
+            background-color: #336699;
+        }
+        #scrollArea .content {
+        }
+        #scrollArea .content .imageDiv {
+            float: left;
+            margin: 0px 5px;
+            background: url('thumb.png') no-repeat 0px 0px;
+            width: 60px;
+            height: 60px;
+        }
+        #scrollArea .content .edge {
+            float: left;
+            width:5px;
+            height: 60px;
+        }
+        #scrollArea .areaBar {
+            width:490px;
+            height:5px;
+            background-color:#4cff00;
+        }
+        #scrollArea .areaTip {
+            width:100px;
+            height:5px;
+            background-color:#f00;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainScreen">
+        <div id="scrollArea" class="scrollArea">
+            <div id="scrollContent" class="content">
+                <div class="edge"></div>
+                <div class="imageDiv">1</div>
+                <div class="imageDiv">2</div>
+                <div class="imageDiv">3</div>
+                <div class="imageDiv">4</div>
+                <div class="imageDiv">5</div>
+                <div class="imageDiv">6</div>
+                <div class="imageDiv">7</div>
+                <div class="imageDiv">8</div>
+                <div class="imageDiv">9</div>
+                <div class="imageDiv">10</div>
+                <div class="imageDiv">11</div>
+                <div class="imageDiv">12</div>
+                <div class="imageDiv">13</div>
+                <div class="imageDiv">14</div>
+                <div class="imageDiv">15</div>
+                <div class="edge"></div>
+            </div>
+            <div class="areaTip"></div>
+            <div class="areaBar"></div>
+        </div>
+
+        <input type="button" value="changeSize" onclick="changeSize();" />
+    </div>
+
+
+    <script type="text/javascript">
+
+
+        var mainMenu;
+        var stage;
+        var area; //ui.CScrollArea
+        var btnCount = 0;
+
+        $(document).ready(function () {
+
+            //增加debugger | Render.js
+            DebugView.setUp(document.body, 800, 400);
+
+            //最外層stage 設定
+            stage = new viewjs.CStage();
+            stage.initialize("mainScreen", "100%", "100%", "100%", "100%");
+            stage.setAlign({ w: "100%", h: "100%", ha: "C", va: "T" });
+            stage.fillBackground("#333333", "100%", "100%");
+
+
+            //首次手動設定align
+            stage.alignStage();
+
+            area = new ui.CScrollArea();
+            area.setup("scrollArea", 5, 80, 5, 5);
+            area.move(100, 100);
+            area.setMask();
+
+            stage.addChild(area);
+
+            //15 images witdh 60, with 16 gaps
+            var totalW = (15 * 60) + (10 * 16);
+            area.contentDP.setSize(totalW, 60);
+            
+
+            area.setUISize(800, 90);
+
+            area.contentDP.movey(10);
+
+            area.setControlLogic();
+
+
+        });
+
+        function changeSize() {
+            btnCount++;
+            if (btnCount == 1) {
+                area.setUISize(500, 90);
+            }
+            if (btnCount == 2) {
+                area.setUISize(800, 90);
+            }
+            if (btnCount == 3) {
+                area.setUISize(300, 90);
+                btnCount = 0;
+            }
+        }
+
+    </script>
+</body>
+</html>
